@@ -85,7 +85,7 @@ useEffect(() => {
 ---
 
 ##  Design Philosophy
-This application utilizes a **Humanized Yellow Theme**. 
+This application utilizes a **Yellow Theme**. 
 *   **Color Palette:** `#fff9e6` (Warm Yellow) and `#3b2b10` (Deep Brown) to reduce eye strain and provide a "cafe" feel.
 *   **Sharp-Edge UI:** All `border-radius` properties are set to `0`. This creates a high-contrast, professional, and modern "brutalist" aesthetic that focuses purely on functionality and content.
 
