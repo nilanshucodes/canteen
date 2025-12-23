@@ -1,19 +1,16 @@
-/* RESET + GLOBAL */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* no rounded corners anywhere */
   border-radius: 0 !important;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #fff9e6; /* soft yellow background */
+  background: #fff9e6; 
   color: #3b2b10;
 }
 
-/* ==================== LOADING ==================== */
 .loading-screen {
   display: flex;
   flex-direction: column;
@@ -31,7 +28,6 @@ body {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ==================== AUTH ==================== */
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -108,7 +104,6 @@ body {
   text-decoration: underline;
 }
 
-/* ==================== TOAST ==================== */
 .toast {
   position: fixed;
   top: 20px;
@@ -126,7 +121,6 @@ body {
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* ==================== NAV ==================== */
 nav {
   background: linear-gradient(135deg, #f1c40f 0%, #d4ac0d 100%);
   color: #3b2b10;
@@ -187,7 +181,6 @@ nav h1 {
   padding: 1px 6px;
 }
 
-/* ==================== MAIN ==================== */
 main {
   max-width: 1400px;
   margin: 0 auto;
@@ -200,7 +193,6 @@ main {
   gap: 20px;
 }
 
-/* ==================== MENU ==================== */
 .menu, .cart, .orders, .admin {
   background: #fffdf4;
   padding: 20px;
@@ -297,7 +289,6 @@ main {
   background: #f4d03f;
 }
 
-/* ==================== CART ==================== */
 .cart {
   position: sticky;
   top: 80px;
@@ -401,7 +392,6 @@ main {
   cursor: not-allowed;
 }
 
-/* ==================== ORDER TRACKER ==================== */
 .order-tracker {
   display: flex;
   align-items: center;
@@ -455,7 +445,6 @@ main {
   background: #f1c40f;
 }
 
-/* ==================== ORDERS ==================== */
 .orders-section {
   margin-bottom: 24px;
 }
@@ -538,7 +527,6 @@ main {
   color: #186a3b;
 }
 
-/* ==================== ADMIN ==================== */
 .admin-tabs {
   display: flex;
   gap: 8px;
@@ -642,7 +630,6 @@ main {
   background: #f4d03f;
 }
 
-/* Admin form */
 .admin-form-section {
   background: #fffbe6;
   padding: 14px;
@@ -678,7 +665,6 @@ main {
   color: #fffdf4;
 }
 
-/* Admin items */
 .admin-items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -746,7 +732,7 @@ main {
   font-size: 0.85rem;
 }
 
-/* History */
+
 .history-list {
   display: flex;
   flex-direction: column;
@@ -763,7 +749,7 @@ main {
   font-size: 0.85rem;
 }
 
-/* Modal */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -814,7 +800,6 @@ main {
   border-color: #b0b0b0;
 }
 
-/* ==================== RESPONSIVE ==================== */
 @media (max-width: 900px) {
   .menu-view {
     grid-template-columns: 1fr;
