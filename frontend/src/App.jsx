@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react'
 import { supabase } from './supabase'
 import './App.css'
 
-// ==================== TOAST COMPONENT ====================
 function Toast({ message, show }) {
   if (!show) return null
   return <div className="toast">{message}</div>
 }
 
-// ==================== AUTH COMPONENT ====================
 function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -87,7 +85,6 @@ function Auth() {
   )
 }
 
-// ==================== MENU COMPONENT ====================
 function Menu({ items, cart, setCart, search, setSearch, filter, setFilter, showMsg }) {
   const categories = ['All', ...new Set(items.map(i => i.category))]
   const filtered = items.filter(i => 
@@ -139,7 +136,6 @@ function Menu({ items, cart, setCart, search, setSearch, filter, setFilter, show
   )
 }
 
-// ==================== CART COMPONENT ====================
 function Cart({ cart, setCart, user, onOrder, showMsg }) {
   const [loading, setLoading] = useState(false)
   const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0)
@@ -223,13 +219,12 @@ function Cart({ cart, setCart, user, onOrder, showMsg }) {
   )
 }
 
-// ==================== ORDER STATUS TRACKER ====================
 function OrderTracker({ status }) {
   const steps = ['placed', 'preparing', 'ready', 'completed']
   const currentIndex = steps.indexOf(status)
   
   const stepLabels = {
-    placed: '📝 Placed',
+    placed: '📝 Placed',// this emoji is placed by nilanshu (NOT AI)
     preparing: '👨‍🍳 Preparing',
     ready: '✅ Ready',
     completed: '🎉 Completed'
@@ -252,7 +247,6 @@ function OrderTracker({ status }) {
   )
 }
 
-// ==================== ORDERS COMPONENT (USER) ====================
 function Orders({ orders }) {
   const activeOrders = orders.filter(o => o.status !== 'completed')
   const pastOrders = orders.filter(o => o.status === 'completed')
@@ -269,7 +263,6 @@ function Orders({ orders }) {
         <p className="no-orders">No orders yet. Start ordering!</p>
       ) : (
         <>
-          {/* Active Orders */}
           {activeOrders.length > 0 && (
             <div className="orders-section">
               <h3>Active Orders</h3>
@@ -298,7 +291,6 @@ function Orders({ orders }) {
             </div>
           )}
 
-          {/* Order History */}
           {pastOrders.length > 0 && (
             <div className="orders-section">
               <h3>Order History</h3>
@@ -331,7 +323,6 @@ function Orders({ orders }) {
   )
 }
 
-// ==================== ADMIN DASHBOARD ====================
 function AdminDashboard({ orders, items, refreshData, showMsg }) {
   const [newItem, setNewItem] = useState({ 
     name: '', 
@@ -350,7 +341,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     completed: '#6c757d' 
   }
 
-  // Update order status
   const updateStatus = async (id, status) => {
     const { error } = await supabase.from('orders').update({ status }).eq('id', id)
     if (error) {
@@ -361,7 +351,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     }
   }
 
-  // Quick status buttons
   const nextStatus = (currentStatus) => {
     const currentIndex = statusFlow.indexOf(currentStatus)
     if (currentIndex < statusFlow.length - 1) {
@@ -370,7 +359,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     return null
   }
 
-  // Add menu item
   const addItem = async (e) => {
     e.preventDefault()
     if (!newItem.name || !newItem.price) {
@@ -393,7 +381,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     }
   }
 
-  // Update menu item
   const updateItem = async (e) => {
     e.preventDefault()
     const { error } = await supabase
@@ -416,7 +403,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     }
   }
 
-  // Delete menu item
   const deleteItem = async (id, name) => {
     if (!window.confirm(`Delete "${name}"?`)) return
     
@@ -429,7 +415,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     }
   }
 
-  // Toggle availability
   const toggleAvailability = async (id, currentStatus) => {
     const { error } = await supabase
       .from('menu_items')
@@ -449,7 +434,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
     <div className="admin">
       <h2>Admin Dashboard</h2>
       
-      {/* Admin Tabs */}
       <div className="admin-tabs">
         <button 
           className={activeTab === 'orders' ? 'active' : ''} 
@@ -471,7 +455,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
         </button>
       </div>
 
-      {/* ORDERS TAB */}
       {activeTab === 'orders' && (
         <div className="admin-section">
           <h3>Active Orders</h3>
@@ -530,10 +513,8 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
         </div>
       )}
 
-      {/* MENU TAB */}
       {activeTab === 'menu' && (
         <div className="admin-section">
-          {/* Add New Item Form */}
           <div className="admin-form-section">
             <h3>Add New Item</h3>
             <form onSubmit={addItem} className="admin-form">
@@ -570,7 +551,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
             </form>
           </div>
 
-          {/* Edit Item Modal */}
           {editingItem && (
             <div className="modal-overlay" onClick={() => setEditingItem(null)}>
               <div className="modal" onClick={e => e.stopPropagation()}>
@@ -621,7 +601,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
             </div>
           )}
 
-          {/* Menu Items List */}
           <div className="admin-items-section">
             <h3>Menu Items</h3>
             <div className="admin-items-grid">
@@ -649,7 +628,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
         </div>
       )}
 
-      {/* HISTORY TAB */}
       {activeTab === 'history' && (
         <div className="admin-section">
           <h3>Completed Orders</h3>
@@ -673,7 +651,6 @@ function AdminDashboard({ orders, items, refreshData, showMsg }) {
   )
 }
 
-// ==================== MAIN APP ====================
 export default function App() {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
@@ -691,7 +668,6 @@ export default function App() {
     setTimeout(() => setToast(''), 3000)
   }
 
-  // Auth listener
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
@@ -705,7 +681,6 @@ export default function App() {
     return () => subscription.unsubscribe()
   }, [])
 
-  // Fetch data when user changes
   useEffect(() => {
     const loadData = async () => {
       // Get menu
@@ -716,7 +691,6 @@ export default function App() {
       setItems(menuData || [])
       
       if (user) {
-        // Get profile
         let { data: profileData } = await supabase
           .from('profiles')
           .select('*')
@@ -734,13 +708,11 @@ export default function App() {
         
         setProfile(profileData)
         
-        // Get orders based on role
         let ordersQuery = supabase
           .from('orders')
           .select('*')
           .order('created_at', { ascending: false })
-        
-        // Admin sees all orders, users see only their orders
+
         if (profileData?.role !== 'admin') {
           ordersQuery = ordersQuery.eq('user_id', user.id)
         }
@@ -751,8 +723,6 @@ export default function App() {
     }
 
     loadData()
-
-    // Realtime subscription for orders
     const subscription = supabase
       .channel('orders-channel')
       .on('postgres_changes', { 
@@ -767,7 +737,6 @@ export default function App() {
     return () => subscription.unsubscribe()
   }, [user])
 
-  // Refresh function for child components
   const refreshData = async () => {
     const { data: menuData } = await supabase.from('menu_items').select('*').order('category')
     setItems(menuData || [])
@@ -783,8 +752,6 @@ export default function App() {
       setOrders(ordersData || [])
     }
   }
-
-  // Loading state
   if (loading) {
     return (
       <div className="loading-screen">
@@ -794,7 +761,6 @@ export default function App() {
     )
   }
 
-  // Not logged in
   if (!user) return <Auth />
 
   return (
